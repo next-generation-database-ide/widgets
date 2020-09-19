@@ -6,5 +6,12 @@
 */
 {
   "files": [],
-  "references": []
+  "references": [
+    {
+      "path": "./projects/ml-datatable/tsconfig.lib.json"
+    },
+    {
+      "path": "./projects/ml-datatable/tsconfig.spec.json"
+    }
+]
 }
