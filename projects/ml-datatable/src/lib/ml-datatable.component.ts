@@ -1,25 +1,32 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {AfterViewInit, Component, Input, OnChanges, OnInit, SimpleChanges, ViewChild} from '@angular/core';
 import {MLDatatableSetting} from './model/ml-datatable-setting';
 import {HttpClient} from '@angular/common/http';
 import {MLDatatableColumnType} from './model/ml-datatable-column-type';
 import {MLDatatableEditMode} from './model/ml-datatable-edit-mode';
+import {MatSort} from '@angular/material/sort';
+import {MatTableDataSource} from '@angular/material/table';
+import {MatPaginator} from '@angular/material/paginator';
 
 @Component({
   selector: 'ml-datatable',
   templateUrl: 'ml-datatable.component.html',
   styleUrls: ['ml-datatable.component.scss']
 })
-export class MlDatatableComponent<T> implements OnInit {
+export class MlDatatableComponent<T> implements OnInit, OnChanges, AfterViewInit {
   @Input() setting: MLDatatableSetting;
   @Input() dataUrl: string;
   @Input() dataSource: T[];
+
+  @ViewChild(MatSort) sort: MatSort;
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+
+  dataObject: any;
   displayedColumns = [];
 
   constructor(private httpClient: HttpClient) {
   }
 
   ngOnInit(): void {
-
     if (this.dataSource == null
       && this.dataUrl == null) {
       throw new Error('No dataSource or dataUrl defined');
@@ -38,14 +45,29 @@ export class MlDatatableComponent<T> implements OnInit {
       this.createDefaultColumns();
     }
 
-    this.setupDisplayColumn();
+    this.createDefaultDisplayedColumns();
+
+    this.dataObject = new MatTableDataSource<T>(this.dataSource);
   }
 
-  createDefaultSetting(): MLDatatableSetting {
+  ngOnChanges(changes: SimpleChanges): void {
+
+  }
+
+  ngAfterViewInit(): void {
+    this.dataObject.sort = this.sort;
+    this.dataObject.paginator = this.paginator;
+  }
+
+  columnFilterDefined(): boolean {
+    return this.setting.columns.find(column => column.allowFilter === true) != null;
+  }
+
+  private createDefaultSetting(): MLDatatableSetting {
     return {
       display: {
         paging: true,
-        recordPerPage: 100
+        pageSizeOptions: [10, 50, 100]
       },
       edit: {
         enabled: false,
@@ -59,13 +81,12 @@ export class MlDatatableComponent<T> implements OnInit {
       },
       singleView: false,
       protected: false,
-      showFilter: false,
       searchBox: false,
       columns: []
     };
   }
 
-  createDefaultColumns(): void {
+  private createDefaultColumns(): void {
     const firstRow = this.dataSource[0];
     this.setting.columns = [];
     for (const attribute in firstRow) {
@@ -77,6 +98,7 @@ export class MlDatatableComponent<T> implements OnInit {
           width: 100,
           type: MLDatatableColumnType.READONLY,
           required: false,
+          allowFilter: false,
           inlineStyle: null,
           cssClass: null
         });
@@ -84,10 +106,12 @@ export class MlDatatableComponent<T> implements OnInit {
     }
   }
 
-  setupDisplayColumn(): void {
+  private createDefaultDisplayedColumns(): void {
     this.displayedColumns = [];
     for (const column of this.setting.columns) {
-      this.displayedColumns.push(column.id);
+      if (column.visible) {
+        this.displayedColumns.push(column.id);
+      }
     }
   }
 }

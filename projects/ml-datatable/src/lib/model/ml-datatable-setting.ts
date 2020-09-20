@@ -4,7 +4,7 @@ import {MLDatatableColumn} from './ml-datatable-column';
 export class MLDatatableSetting {
   display?: {
     paging?: boolean;
-    recordPerPage?: number;
+    pageSizeOptions: number[];
   };
   edit?: {
     enabled?: boolean;
@@ -18,7 +18,6 @@ export class MLDatatableSetting {
   };
   singleView?: boolean;
   protected?: boolean;
-  showFilter?: boolean;
   searchBox?: boolean;
   columns?: MLDatatableColumn[];
 }
