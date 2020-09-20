@@ -7,6 +7,7 @@ import {MatPaginatorModule} from '@angular/material/paginator';
 import {MatSortModule} from '@angular/material/sort';
 import {FormsModule} from '@angular/forms';
 import {MatIconModule} from '@angular/material/icon';
+import {MatCheckboxModule} from '@angular/material/checkbox';
 
 @NgModule({
   declarations: [MlDatatableComponent],
@@ -17,7 +18,8 @@ import {MatIconModule} from '@angular/material/icon';
     MatPaginatorModule,
     MatSortModule,
     FormsModule,
-    MatIconModule
+    MatIconModule,
+    MatCheckboxModule
   ],
   exports: [MlDatatableComponent]
 })

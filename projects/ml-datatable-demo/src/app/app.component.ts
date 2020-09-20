@@ -2,6 +2,7 @@ import {Component} from '@angular/core';
 import {MLDatatableEditMode} from '../../../ml-datatable/src/lib/model/ml-datatable-edit-mode';
 import {MLDatatableSetting} from '../../../ml-datatable/src/lib/model/ml-datatable-setting';
 import {MLDatatableColumnType} from '../../../ml-datatable/src/lib/model/ml-datatable-column-type';
+import {MLSelectMode} from '../../../ml-datatable/src/lib/model/ml-select-mode';
 
 @Component({
   selector: 'app-root',
@@ -36,7 +37,7 @@ export class AppComponent {
     },
     singleView: false,
     protected: false,
-    showFilter: false,
+    selectMode: MLSelectMode.MULTI,
     searchBox: false,
     columns: [
       {

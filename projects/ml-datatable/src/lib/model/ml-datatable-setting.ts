@@ -1,5 +1,6 @@
 import {MLDatatableEditMode} from './ml-datatable-edit-mode';
 import {MLDatatableColumn} from './ml-datatable-column';
+import {MLSelectMode} from './ml-select-mode';
 
 export class MLDatatableSetting {
   display?: {
@@ -16,6 +17,7 @@ export class MLDatatableSetting {
     csv?: boolean;
     tsv?: boolean;
   };
+  selectMode: MLSelectMode;
   singleView?: boolean;
   protected?: boolean;
   searchBox?: boolean;

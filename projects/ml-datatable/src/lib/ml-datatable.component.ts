@@ -6,6 +6,8 @@ import {MLDatatableEditMode} from './model/ml-datatable-edit-mode';
 import {MatSort} from '@angular/material/sort';
 import {MatTableDataSource} from '@angular/material/table';
 import {MatPaginator} from '@angular/material/paginator';
+import {SelectionModel} from '@angular/cdk/collections';
+import {MLSelectMode} from './model/ml-select-mode';
 
 @Component({
   selector: 'ml-datatable',
@@ -13,6 +15,9 @@ import {MatPaginator} from '@angular/material/paginator';
   styleUrls: ['ml-datatable.component.scss']
 })
 export class MlDatatableComponent<T> implements OnInit, OnChanges, AfterViewInit {
+
+  constructor(private httpClient: HttpClient) {
+  }
   @Input() setting: MLDatatableSetting;
   @Input() dataUrl: string;
   @Input() dataSource: T[];
@@ -22,48 +27,9 @@ export class MlDatatableComponent<T> implements OnInit, OnChanges, AfterViewInit
 
   dataObject: any;
   displayedColumns = [];
+  selection: SelectionModel<T>;
 
-  constructor(private httpClient: HttpClient) {
-  }
-
-  ngOnInit(): void {
-    if (this.dataSource == null
-      && this.dataUrl == null) {
-      throw new Error('No dataSource or dataUrl defined');
-    }
-
-    if (this.dataSource != null && this.dataUrl != null) {
-      throw new Error('Both dataSource and dataUrl are defined. Please use only one');
-    }
-
-    if (this.setting == null) {
-      this.setting = this.createDefaultSetting();
-    }
-
-    if (this.setting.columns === null
-      || this.setting.columns.length === 0) {
-      this.createDefaultColumns();
-    }
-
-    this.createDefaultDisplayedColumns();
-
-    this.dataObject = new MatTableDataSource<T>(this.dataSource);
-  }
-
-  ngOnChanges(changes: SimpleChanges): void {
-
-  }
-
-  ngAfterViewInit(): void {
-    this.dataObject.sort = this.sort;
-    this.dataObject.paginator = this.paginator;
-  }
-
-  columnFilterDefined(): boolean {
-    return this.setting.columns.find(column => column.allowFilter === true) != null;
-  }
-
-  private createDefaultSetting(): MLDatatableSetting {
+  static createDefaultSetting(): MLDatatableSetting {
     return {
       display: {
         paging: true,
@@ -79,11 +45,69 @@ export class MlDatatableComponent<T> implements OnInit, OnChanges, AfterViewInit
         csv: false,
         tsv: false
       },
+      selectMode: MLSelectMode.NONE,
       singleView: false,
       protected: false,
       searchBox: false,
       columns: []
     };
+  }
+
+  ngOnInit(): void {
+    if (this.dataSource == null
+      && this.dataUrl == null) {
+      throw new Error('No dataSource or dataUrl defined');
+    }
+
+    if (this.dataSource != null && this.dataUrl != null) {
+      throw new Error('Both dataSource and dataUrl are defined. Please use only one');
+    }
+
+    if (this.setting == null) {
+      this.setting = MlDatatableComponent.createDefaultSetting();
+    }
+
+    if (this.setting.columns === null
+      || this.setting.columns.length === 0) {
+      this.createDefaultColumns();
+    }
+
+    this.createDefaultDisplayedColumns();
+
+    this.dataObject = new MatTableDataSource<T>(this.dataSource);
+
+    if (this.setting.selectMode !== MLSelectMode.NONE) {
+      this.selection = new SelectionModel<T>((this.setting.selectMode === MLSelectMode.MULTI), []);
+    }
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+
+  }
+
+  ngAfterViewInit(): void {
+    this.dataObject.sort = this.sort;
+    this.dataObject.paginator = this.paginator;
+  }
+
+  columnFilterDefined(): boolean {
+    return this.setting.columns.find(column => column.allowFilter === true) != null;
+  }
+
+  isAllSelected(): boolean {
+    const numSelected = this.selection.selected.length;
+    const numRows = this.dataObject.data.length;
+    return numSelected === numRows;
+  }
+
+  toggleAll(): void {
+    this.isAllSelected() ?
+      this.selection.clear() :
+      this.dataObject.data.forEach(row => this.selection.select(row));
+  }
+
+  isMultipleSelect(): boolean {
+    return this.setting.selectMode === MLSelectMode.MULTI;
   }
 
   private createDefaultColumns(): void {
@@ -108,6 +132,10 @@ export class MlDatatableComponent<T> implements OnInit, OnChanges, AfterViewInit
 
   private createDefaultDisplayedColumns(): void {
     this.displayedColumns = [];
+    if (this.setting.selectMode !== MLSelectMode.NONE) {
+      this.displayedColumns.push('select');
+    }
+
     for (const column of this.setting.columns) {
       if (column.visible) {
         this.displayedColumns.push(column.id);
