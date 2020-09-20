@@ -1,7 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {SettingModel} from './model/setting.model';
+import {MLDatatableSetting} from './model/ml-datatable-setting';
 import {HttpClient} from '@angular/common/http';
-import {ColumnTypeEnum} from './model/column-type.enum';
+import {MLDatatableColumnType} from './model/ml-datatable-column-type';
 
 @Component({
   selector: 'ml-datatable',
@@ -9,7 +9,7 @@ import {ColumnTypeEnum} from './model/column-type.enum';
   styles: []
 })
 export class MlDatatableComponent<T> implements OnInit {
-  @Input() setting: SettingModel;
+  @Input() setting: MLDatatableSetting;
   @Input() dataUrl: string;
   @Input() dataSource: T[];
   displayedColumns = [];
@@ -50,7 +50,7 @@ export class MlDatatableComponent<T> implements OnInit {
           name: attribute,
           visible: true,
           width: 100,
-          type: ColumnTypeEnum.READONLY,
+          type: MLDatatableColumnType.READONLY,
           required: false,
           inlineStyle: null,
           cssClass: null

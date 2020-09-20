@@ -1,14 +1,14 @@
-import {SettingEditModeEnum} from './setting-edit-mode.enum';
-import {ColumnModel} from './column.model';
+import {MLDatatableEditMode} from './ml-datatable-edit-mode';
+import {MLDatatableColumn} from './ml-datatable-column';
 
-export class SettingModel {
+export class MLDatatableSetting {
   display?: {
     paging?: boolean;
     recordPerPage?: number;
   };
   edit?: {
     enabled?: boolean;
-    mode?: SettingEditModeEnum;
+    mode?: MLDatatableEditMode;
   };
   export?: {
     excel?: boolean;
@@ -20,5 +20,5 @@ export class SettingModel {
   protected?: boolean;
   showFilter?: boolean;
   searchBox?: boolean;
-  columns?: ColumnModel[];
+  columns?: MLDatatableColumn[];
 }

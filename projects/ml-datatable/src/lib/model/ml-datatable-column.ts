@@ -1,11 +1,11 @@
-import {ColumnTypeEnum} from './column-type.enum';
+import {MLDatatableColumnType} from './ml-datatable-column-type';
 
-export class ColumnModel {
+export class MLDatatableColumn {
   id: string;
   name: string;
   visible: boolean;
   width: number;
-  type: ColumnTypeEnum;
+  type: MLDatatableColumnType;
   required: boolean;
   inlineStyle: string;
   cssClass: string;

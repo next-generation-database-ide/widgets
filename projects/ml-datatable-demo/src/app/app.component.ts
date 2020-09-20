@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
+import {SettingModel} from 'ml-datatable';
 
 @Component({
   selector: 'app-root',
@@ -7,4 +8,8 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'ml-datatable-demo';
+  setting: SettingModel;
+
+  constructor() {
+  }
 }

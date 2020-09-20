@@ -1,4 +1,4 @@
-export enum ColumnTypeEnum {
+export enum MLDatatableColumnType {
   EDITABLE,
   READONLY,
   SELECT,
