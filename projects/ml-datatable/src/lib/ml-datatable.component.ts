@@ -2,11 +2,12 @@ import {Component, Input, OnInit} from '@angular/core';
 import {MLDatatableSetting} from './model/ml-datatable-setting';
 import {HttpClient} from '@angular/common/http';
 import {MLDatatableColumnType} from './model/ml-datatable-column-type';
+import {MLDatatableEditMode} from './model/ml-datatable-edit-mode';
 
 @Component({
   selector: 'ml-datatable',
   templateUrl: 'ml-datatable.component.html',
-  styles: []
+  styleUrls: ['ml-datatable.component.scss']
 })
 export class MlDatatableComponent<T> implements OnInit {
   @Input() setting: MLDatatableSetting;
@@ -19,17 +20,17 @@ export class MlDatatableComponent<T> implements OnInit {
 
   ngOnInit(): void {
 
-    if (this.setting === null) {
-      throw new Error('Input setting is not defined');
-    }
-
-    if (this.dataSource === null
-      && this.dataUrl === null) {
+    if (this.dataSource == null
+      && this.dataUrl == null) {
       throw new Error('No dataSource or dataUrl defined');
     }
 
-    if (this.dataSource !== null && this.dataUrl !== null) {
+    if (this.dataSource != null && this.dataUrl != null) {
       throw new Error('Both dataSource and dataUrl are defined. Please use only one');
+    }
+
+    if (this.setting == null) {
+      this.setting = this.createDefaultSetting();
     }
 
     if (this.setting.columns === null
@@ -38,6 +39,30 @@ export class MlDatatableComponent<T> implements OnInit {
     }
 
     this.setupDisplayColumn();
+  }
+
+  createDefaultSetting(): MLDatatableSetting {
+    return {
+      display: {
+        paging: true,
+        recordPerPage: 100
+      },
+      edit: {
+        enabled: false,
+        mode: MLDatatableEditMode.FORM_POPUP
+      },
+      export: {
+        excel: false,
+        pdf: false,
+        csv: false,
+        tsv: false
+      },
+      singleView: false,
+      protected: false,
+      showFilter: false,
+      searchBox: false,
+      columns: []
+    };
   }
 
   createDefaultColumns(): void {

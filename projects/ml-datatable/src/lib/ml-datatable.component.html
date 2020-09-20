@@ -1,4 +1,4 @@
-<table mat-table [dataSource]="dataSource">
+<table mat-table [dataSource]="dataSource" class="fluid">
 
   <ng-container *ngFor="let column of this.setting.columns" matColumnDef="{{column.id}}">
     <ng-container *ngIf="column.visible">

@@ -1,5 +1,4 @@
 import {Component} from '@angular/core';
-import {SettingModel} from 'ml-datatable';
 
 @Component({
   selector: 'app-root',
@@ -8,7 +7,13 @@ import {SettingModel} from 'ml-datatable';
 })
 export class AppComponent {
   title = 'ml-datatable-demo';
-  setting: SettingModel;
+  dataSource = [
+    {id: 1, name: 'Apple', category: 'Fruit'},
+    {id: 1, name: 'Orange', category: 'Fruit'},
+    {id: 1, name: 'Pineapple', category: 'Fruit'},
+    {id: 1, name: 'Watermelon', category: 'Fruit'},
+    {id: 1, name: 'Mandarin', category: 'Fruit'}
+  ];
 
   constructor() {
   }
