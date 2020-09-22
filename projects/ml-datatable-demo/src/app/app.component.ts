@@ -35,7 +35,8 @@ export class AppComponent {
       csv: false,
       tsv: false
     },
-    singleView: false,
+    filter: true,
+    singleView: true,
     protected: false,
     selectMode: MLSelectMode.MULTI,
     searchBox: false,

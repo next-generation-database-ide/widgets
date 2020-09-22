@@ -8,6 +8,8 @@ import {MatSortModule} from '@angular/material/sort';
 import {FormsModule} from '@angular/forms';
 import {MatIconModule} from '@angular/material/icon';
 import {MatCheckboxModule} from '@angular/material/checkbox';
+import {MatButtonModule} from '@angular/material/button';
+import {MatTooltipModule} from '@angular/material/tooltip';
 
 @NgModule({
   declarations: [MlDatatableComponent],
@@ -19,7 +21,9 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
     MatSortModule,
     FormsModule,
     MatIconModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    MatButtonModule,
+    MatTooltipModule
   ],
   exports: [MlDatatableComponent]
 })

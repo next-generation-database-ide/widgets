@@ -17,6 +17,7 @@ export class MLDatatableSetting {
     csv?: boolean;
     tsv?: boolean;
   };
+  filter: boolean;
   selectMode: MLSelectMode;
   singleView?: boolean;
   protected?: boolean;
