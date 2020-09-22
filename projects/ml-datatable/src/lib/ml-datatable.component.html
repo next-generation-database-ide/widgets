@@ -19,31 +19,25 @@
     </td>
   </ng-container>
 
-  <ng-container *ngIf="setting.singleView" matColumnDef="singleView">
-    <th mat-header-cell *matHeaderCellDef>
-    </th>
-    <td mat-cell *matCellDef="let row">
-      <button mat-icon-button color="primary"
-              matTooltip="View single row"
-              (click)="openSingleViewDialog(row)">
-        <mat-icon>launch</mat-icon>
-      </button>
-    </td>
-  </ng-container>
-
-  <ng-container *ngFor="let column of this.setting.columns" matColumnDef="{{column.id}}">
+  <ng-container *ngFor="let column of this.setting.columns; let colIndex = index"
+                matColumnDef="{{column.id}}">
     <ng-container *ngIf="column.visible">
-      <th mat-header-cell *matHeaderCellDef [ngClass]="column.cssClass"
-          [style.width]="column.width" mat-sort-header>{{column.name}}</th>
-
-      <td mat-cell *matCellDef="let element" [ngClass]="column.cssClass"
-          [style]="column.inlineStyle">{{element[column.id]}}</td>
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>{{column.name}}</th>
+      <td mat-cell *matCellDef="let element; let rowIndex = index"
+      >{{element[column.id]}}</td>
     </ng-container>
   </ng-container>
 
   <ng-container>
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"
+        [ngClass]="{
+          'highlight-select-row': canHighlightSelectRow(row),
+          'highlight-hover-row': canHighlightHoverRow(row)
+        }"
+        (mouseover)="highlightHoverRow(row)"
+        (click)="highlightSelectRow(row)"
+    ></tr>
   </ng-container>
 </table>
 

@@ -65,10 +65,6 @@ export class DatatableService {
       displayedColumns.push('select');
     }
 
-    if (setting.singleView) {
-      displayedColumns.push('singleView');
-    }
-
     for (const column of setting.columns) {
       if (column.visible) {
         displayedColumns.push(column.id);

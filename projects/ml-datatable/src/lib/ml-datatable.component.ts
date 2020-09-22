@@ -14,9 +14,6 @@ import {DatatableService} from './service/datatable.service';
 })
 export class MlDatatableComponent<T> implements OnInit, OnChanges, AfterViewInit {
 
-  constructor(private datatableService: DatatableService) {
-  }
-
   @Input() setting: MLDatatableSetting;
   @Input() dataUrl: string;
   @Input() dataSource: T[];
@@ -27,6 +24,12 @@ export class MlDatatableComponent<T> implements OnInit, OnChanges, AfterViewInit
   dataObject: any;
   displayedColumns = [];
   selection: SelectionModel<T>;
+
+  selectedRowIndex = -1;
+  hoveredRowIndex = -1;
+
+  constructor(private datatableService: DatatableService) {
+  }
 
   ngOnInit(): void {
     if (this.dataSource == null
@@ -85,4 +88,19 @@ export class MlDatatableComponent<T> implements OnInit, OnChanges, AfterViewInit
     console.log(row);
   }
 
+  canHighlightSelectRow(row: any): boolean {
+    return this.selectedRowIndex === row.id;
+  }
+
+  canHighlightHoverRow(row: any): boolean {
+    return this.hoveredRowIndex === row.id && !this.canHighlightSelectRow(row);
+  }
+
+  highlightSelectRow(row): void {
+    this.selectedRowIndex = row.id;
+  }
+
+  highlightHoverRow(row): void {
+    this.hoveredRowIndex = row.id;
+  }
 }

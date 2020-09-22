@@ -8,6 +8,4 @@ export class MLDatatableColumn {
   type?: MLDatatableColumnType;
   allowFilter: boolean;
   required?: boolean;
-  inlineStyle?: string;
-  cssClass?: string;
 }
