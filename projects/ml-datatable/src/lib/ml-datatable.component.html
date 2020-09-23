@@ -4,9 +4,9 @@
   </ng-container>
 </div>
 <table mat-table [dataSource]="dataObject" matSort class="fluid">
-  <ng-container matColumnDef="select">
+  <ng-container matColumnDef="select" *ngIf="isMultipleSelect()">
     <th mat-header-cell *matHeaderCellDef>
-      <mat-checkbox *ngIf="isMultipleSelect()" (change)="$event ? toggleAll() : null"
+      <mat-checkbox (change)="$event ? toggleAll() : null"
                     [checked]="selection.hasValue() && isAllSelected()"
                     [indeterminate]="selection.hasValue() && !isAllSelected()">
       </mat-checkbox>

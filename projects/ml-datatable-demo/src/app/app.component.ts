@@ -38,7 +38,7 @@ export class AppComponent {
     filter: true,
     singleView: true,
     protected: false,
-    selectMode: MLSelectMode.MULTI,
+    selectMode: MLSelectMode.SINGLE,
     searchBox: false,
     columns: [
       {

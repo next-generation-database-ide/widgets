@@ -31,7 +31,7 @@ export class DatatableService {
       },
       filter: true,
       selectMode: MLSelectMode.NONE,
-      singleView: true,
+      singleView: false,
       protected: false,
       searchBox: false,
       columns: []
@@ -61,7 +61,7 @@ export class DatatableService {
 
   public createDefaultDisplayedColumns(setting: MLDatatableSetting): string[] {
     const displayedColumns = [];
-    if (setting.selectMode !== MLSelectMode.NONE) {
+    if (setting.selectMode === MLSelectMode.MULTI) {
       displayedColumns.push('select');
     }
 
