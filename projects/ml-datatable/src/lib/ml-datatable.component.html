@@ -1,8 +1,17 @@
 <div class="control-bar">
   <ng-container *ngIf="setting.filter">
-    <mat-icon>search</mat-icon>
+    <button mat-icon-button>
+      <mat-icon>search</mat-icon>
+    </button>
+  </ng-container>
+
+  <ng-container>
+    <button mat-icon-button>
+      <mat-icon>filter_alt</mat-icon>
+    </button>
   </ng-container>
 </div>
+
 <table mat-table [dataSource]="dataObject" matSort class="fluid">
   <ng-container matColumnDef="select" *ngIf="isMultipleSelect()">
     <th mat-header-cell *matHeaderCellDef>
@@ -19,23 +28,22 @@
     </td>
   </ng-container>
 
+  <!--  Column definition-->
   <ng-container *ngFor="let column of this.setting.columns; let colIndex = index"
                 matColumnDef="{{column.id}}">
     <ng-container *ngIf="column.visible">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header>{{column.name}}</th>
-      <td mat-cell *matCellDef="let element; let rowIndex = index"
-      >{{element[column.id]}}</td>
+      <th mat-header-cell *matHeaderCellDef mat-sort-header class="header">
+        {{column.name}}
+      </th>
+      <td mat-cell *matCellDef="let element; let rowIndex = index">
+        {{element[column.id]}}
+      </td>
     </ng-container>
   </ng-container>
 
   <ng-container>
-    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-header-row *matHeaderRowDef="displayedColumns" class="header"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"
-        [ngClass]="{
-          'highlight-select-row': canHighlightSelectRow(row),
-          'highlight-hover-row': canHighlightHoverRow(row)
-        }"
-        (mouseover)="highlightHoverRow(row)"
         (click)="highlightSelectRow(row)"
     ></tr>
   </ng-container>

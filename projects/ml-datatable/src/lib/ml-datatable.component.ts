@@ -26,7 +26,6 @@ export class MlDatatableComponent<T> implements OnInit, OnChanges, AfterViewInit
   selection: SelectionModel<T>;
 
   selectedRowIndex = -1;
-  hoveredRowIndex = -1;
 
   constructor(private datatableService: DatatableService) {
   }
@@ -51,6 +50,7 @@ export class MlDatatableComponent<T> implements OnInit, OnChanges, AfterViewInit
     }
 
     this.displayedColumns = this.datatableService.createDefaultDisplayedColumns(this.setting);
+
     this.dataObject = new MatTableDataSource<T>(this.dataSource);
 
     if (this.setting.selectMode !== MLSelectMode.NONE) {
@@ -92,15 +92,7 @@ export class MlDatatableComponent<T> implements OnInit, OnChanges, AfterViewInit
     return this.selectedRowIndex === row.id;
   }
 
-  canHighlightHoverRow(row: any): boolean {
-    return this.hoveredRowIndex === row.id && !this.canHighlightSelectRow(row);
-  }
-
   highlightSelectRow(row): void {
     this.selectedRowIndex = row.id;
-  }
-
-  highlightHoverRow(row): void {
-    this.hoveredRowIndex = row.id;
   }
 }

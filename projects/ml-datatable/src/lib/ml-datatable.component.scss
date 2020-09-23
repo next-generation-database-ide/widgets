@@ -1,3 +1,11 @@
+table {
+  border-collapse: collapse;
+}
+
+td, th {
+  border: 1px solid #ddd;
+}
+
 .fluid {
   width: 100%;
 }
@@ -9,8 +17,4 @@
 
 .highlight-select-row {
   background: #42A948;
-}
-
-.highlight-hover-row {
-  background: #f5f4f4;
 }

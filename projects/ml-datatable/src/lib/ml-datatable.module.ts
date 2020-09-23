@@ -10,6 +10,7 @@ import {MatIconModule} from '@angular/material/icon';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatButtonModule} from '@angular/material/button';
 import {MatTooltipModule} from '@angular/material/tooltip';
+import {MatInputModule} from '@angular/material/input';
 
 @NgModule({
   declarations: [MlDatatableComponent],
@@ -23,7 +24,8 @@ import {MatTooltipModule} from '@angular/material/tooltip';
     MatIconModule,
     MatCheckboxModule,
     MatButtonModule,
-    MatTooltipModule
+    MatTooltipModule,
+    MatInputModule
   ],
   exports: [MlDatatableComponent]
 })
