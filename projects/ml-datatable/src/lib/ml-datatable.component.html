@@ -1,13 +1,38 @@
 <div class="control-bar">
+  <ng-container>
+    <button mat-icon-button [matMenuTriggerFor]="menu">
+      <mat-icon>more_vert</mat-icon>
+    </button>
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item>
+        <mat-icon>view_list</mat-icon>
+        <span>View single record</span>
+      </button>
+      <button mat-menu-item [matMenuTriggerFor]="exportMenu">
+        <mat-icon>save_alt</mat-icon>
+        <span>Export</span>
+      </button>
+    </mat-menu>
+
+    <mat-menu #exportMenu="matMenu">
+      <button mat-menu-item>
+        <span>Excel</span>
+      </button>
+      <button mat-menu-item>
+        <span>PDF</span>
+      </button>
+      <button mat-menu-item>
+        <span>CSV</span>
+      </button>
+      <button mat-menu-item>
+        <span>TSV</span>
+      </button>
+    </mat-menu>
+  </ng-container>
+
   <ng-container *ngIf="setting.enableSearch">
     <button mat-icon-button>
       <mat-icon>search</mat-icon>
-    </button>
-  </ng-container>
-
-  <ng-container>
-    <button mat-icon-button>
-      <mat-icon>filter_alt</mat-icon>
     </button>
   </ng-container>
 </div>

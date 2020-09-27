@@ -12,6 +12,7 @@ import {MatButtonModule} from '@angular/material/button';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatInputModule} from '@angular/material/input';
 import {MatChipsModule} from '@angular/material/chips';
+import {MatMenuModule} from '@angular/material/menu';
 
 @NgModule({
   declarations: [MLDatatableComponent],
@@ -27,7 +28,8 @@ import {MatChipsModule} from '@angular/material/chips';
     MatButtonModule,
     MatTooltipModule,
     MatInputModule,
-    MatChipsModule
+    MatChipsModule,
+    MatMenuModule
   ],
   exports: [MLDatatableComponent]
 })
