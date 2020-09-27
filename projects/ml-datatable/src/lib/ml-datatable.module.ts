@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { MlDatatableComponent } from './ml-datatable.component';
+import { MLDatatableComponent } from './ml-datatable.component';
 import {MatTableModule} from '@angular/material/table';
 import {CommonModule} from '@angular/common';
 import {HttpClientModule} from '@angular/common/http';
@@ -11,9 +11,10 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatButtonModule} from '@angular/material/button';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatInputModule} from '@angular/material/input';
+import {MatChipsModule} from '@angular/material/chips';
 
 @NgModule({
-  declarations: [MlDatatableComponent],
+  declarations: [MLDatatableComponent],
   imports: [
     HttpClientModule,
     MatTableModule,
@@ -25,8 +26,9 @@ import {MatInputModule} from '@angular/material/input';
     MatCheckboxModule,
     MatButtonModule,
     MatTooltipModule,
-    MatInputModule
+    MatInputModule,
+    MatChipsModule
   ],
-  exports: [MlDatatableComponent]
+  exports: [MLDatatableComponent]
 })
 export class MlDatatableModule { }

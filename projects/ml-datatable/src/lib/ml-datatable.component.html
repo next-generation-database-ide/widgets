@@ -1,5 +1,5 @@
 <div class="control-bar">
-  <ng-container *ngIf="setting.filter">
+  <ng-container *ngIf="setting.enableSearch">
     <button mat-icon-button>
       <mat-icon>search</mat-icon>
     </button>
@@ -41,8 +41,21 @@
     </ng-container>
   </ng-container>
 
+  <ng-container *ngFor="let column of this.setting.columns; let colIndex = index"
+                matColumnDef="filter_{{column.id}}">
+    <ng-container *ngIf="column.visible">
+      <th mat-header-cell *matHeaderCellDef class="filter">
+        <mat-form-field appearance="outline" *ngIf="column.filter != null">
+          <mat-label>Filter {{column.name}}</mat-label>
+          <input matInput type="text" id="{{column.id}}" name="{{column.id}}">
+        </mat-form-field>
+      </th>
+    </ng-container>
+  </ng-container>
+
   <ng-container>
     <tr mat-header-row *matHeaderRowDef="displayedColumns" class="header"></tr>
+    <tr mat-header-row *matHeaderRowDef="filterDisplayedColumns" class="filter"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"
         (click)="highlightSelectRow(row)"
     ></tr>

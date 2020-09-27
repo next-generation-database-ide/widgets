@@ -1,9 +1,10 @@
 import {Injectable} from '@angular/core';
-import {MLDatatableSetting} from '../model/ml-datatable-setting';
-import {MLDatatableEditMode} from '../model/ml-datatable-edit-mode';
-import {MLSelectMode} from '../model/ml-select-mode';
-import {MLDatatableColumnType} from '../model/ml-datatable-column-type';
-import {MLDatatableColumn} from '../model/ml-datatable-column';
+import {MLDatatableSetting} from '../models/ml-datatable-setting';
+import {MLDatatableEditMode} from '../models/ml-datatable-edit-mode';
+import {MLDatatableColumn} from '../models/columns/ml-datatable-column';
+import {MLDatatableColumnType} from '../models/columns/ml-datatable-column-type';
+import {MLDatatableSelectMode} from '../models/ml-datatable-select-mode';
+import {MLDatatableColumnFilterMode} from '../models/columns/ml-datatable-column-filter-mode';
 
 @Injectable({
   providedIn: 'root'
@@ -29,11 +30,10 @@ export class DatatableService {
         csv: false,
         tsv: false
       },
-      filter: true,
-      selectMode: MLSelectMode.NONE,
+      enableSearch: true,
+      selectMode: MLDatatableSelectMode.NONE,
       singleView: false,
       protected: false,
-      searchBox: false,
       columns: []
     };
   }
@@ -50,7 +50,9 @@ export class DatatableService {
           width: 100,
           type: MLDatatableColumnType.READONLY,
           required: false,
-          allowFilter: false,
+          filter: {
+            filterMode: MLDatatableColumnFilterMode.EXACT
+          },
           inlineStyle: null,
           cssClass: null
         });
@@ -61,13 +63,28 @@ export class DatatableService {
 
   public createDefaultDisplayedColumns(setting: MLDatatableSetting): string[] {
     const displayedColumns = [];
-    if (setting.selectMode === MLSelectMode.MULTI) {
+    if (setting.selectMode === MLDatatableSelectMode.MULTI) {
       displayedColumns.push('select');
     }
 
     for (const column of setting.columns) {
       if (column.visible) {
         displayedColumns.push(column.id);
+      }
+    }
+
+    return displayedColumns;
+  }
+
+  public createDefaultFilterDisplayedColumns(setting: MLDatatableSetting): string[] {
+    const displayedColumns = [];
+    if (setting.selectMode === MLDatatableSelectMode.MULTI) {
+      displayedColumns.push('filter_select');
+    }
+
+    for (const column of setting.columns) {
+      if (column.filter) {
+        displayedColumns.push(`filter_${column.id}`);
       }
     }
 

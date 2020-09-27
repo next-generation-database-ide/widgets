@@ -1,4 +1,5 @@
 import {MLDatatableColumnType} from './ml-datatable-column-type';
+import {MLDatatableColumnFilter} from './ml-datatable-column-filter';
 
 export class MLDatatableColumn {
   id: string;
@@ -6,6 +7,6 @@ export class MLDatatableColumn {
   visible?: boolean;
   width?: number;
   type?: MLDatatableColumnType;
-  allowFilter: boolean;
+  filter?: MLDatatableColumnFilter;
   required?: boolean;
 }

@@ -1,8 +1,9 @@
 import {Component} from '@angular/core';
-import {MLDatatableEditMode} from '../../../ml-datatable/src/lib/model/ml-datatable-edit-mode';
-import {MLDatatableSetting} from '../../../ml-datatable/src/lib/model/ml-datatable-setting';
-import {MLDatatableColumnType} from '../../../ml-datatable/src/lib/model/ml-datatable-column-type';
-import {MLSelectMode} from '../../../ml-datatable/src/lib/model/ml-select-mode';
+import {MLDatatableSetting} from '../../../ml-datatable/src/lib/models/ml-datatable-setting';
+import {MLDatatableEditMode} from '../../../ml-datatable/src/lib/models/ml-datatable-edit-mode';
+import {MLDatatableSelectMode} from '../../../ml-datatable/src/lib/models/ml-datatable-select-mode';
+import {MLDatatableColumnType} from '../../../ml-datatable/src/lib/models/columns/ml-datatable-column-type';
+import {MLDatatableColumnFilterMode} from '../../../ml-datatable/src/lib/models/columns/ml-datatable-column-filter-mode';
 
 @Component({
   selector: 'app-root',
@@ -35,27 +36,36 @@ export class AppComponent {
       csv: false,
       tsv: false
     },
-    filter: true,
+    enableSearch: true,
     singleView: true,
     protected: false,
-    selectMode: MLSelectMode.SINGLE,
-    searchBox: false,
+    selectMode: MLDatatableSelectMode.SINGLE,
     columns: [
       {
         id: 'id', name: 'ID', visible: true, width: 75,
-        type: MLDatatableColumnType.READONLY, required: false, allowFilter: true
+        type: MLDatatableColumnType.READONLY, required: false, filter: {
+          filterMode: MLDatatableColumnFilterMode.EXACT
+        }
       }, {
         id: 'name', name: 'Name', visible: true, width: 125,
-        type: MLDatatableColumnType.READONLY, required: false, allowFilter: true
+        type: MLDatatableColumnType.READONLY, required: false, filter: {
+          filterMode: MLDatatableColumnFilterMode.EXACT
+        }
       }, {
         id: 'category', name: 'Category', visible: true, width: 100,
-        type: MLDatatableColumnType.READONLY, required: false, allowFilter: true
+        type: MLDatatableColumnType.READONLY, required: false, filter: {
+          filterMode: MLDatatableColumnFilterMode.EXACT
+        }
       }, {
         id: 'price', name: 'Price', visible: true, width: 100,
-        type: MLDatatableColumnType.READONLY, required: false, allowFilter: true
+        type: MLDatatableColumnType.READONLY, required: false, filter: {
+          filterMode: MLDatatableColumnFilterMode.EXACT
+        }
       }, {
         id: 'sellDate', name: 'Sell Date', visible: true, width: 100,
-        type: MLDatatableColumnType.READONLY, required: false, allowFilter: true
+        type: MLDatatableColumnType.READONLY, required: false, filter: {
+          filterMode: MLDatatableColumnFilterMode.EXACT
+        }
       }
     ]
   };

@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { MlDatatableComponent } from './ml-datatable.component';
+import { MLDatatableComponent } from './ml-datatable.component';
 
 describe('MlDatatableComponent', () => {
-  let component: MlDatatableComponent;
-  let fixture: ComponentFixture<MlDatatableComponent>;
+  let component: MLDatatableComponent;
+  let fixture: ComponentFixture<MLDatatableComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ MlDatatableComponent ]
+      declarations: [ MLDatatableComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(MlDatatableComponent);
+    fixture = TestBed.createComponent(MLDatatableComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

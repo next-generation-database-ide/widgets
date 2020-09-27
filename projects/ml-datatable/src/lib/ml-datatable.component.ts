@@ -1,18 +1,18 @@
 import {AfterViewInit, Component, Input, OnChanges, OnInit, SimpleChanges, ViewChild} from '@angular/core';
-import {MLDatatableSetting} from './model/ml-datatable-setting';
 import {MatSort} from '@angular/material/sort';
 import {MatTableDataSource} from '@angular/material/table';
 import {MatPaginator} from '@angular/material/paginator';
 import {SelectionModel} from '@angular/cdk/collections';
-import {MLSelectMode} from './model/ml-select-mode';
-import {DatatableService} from './service/datatable.service';
+import {DatatableService} from './services/datatable.service';
+import {MLDatatableSetting} from './models/ml-datatable-setting';
+import {MLDatatableSelectMode} from './models/ml-datatable-select-mode';
 
 @Component({
   selector: 'ml-datatable',
   templateUrl: 'ml-datatable.component.html',
   styleUrls: ['ml-datatable.component.scss']
 })
-export class MlDatatableComponent<T> implements OnInit, OnChanges, AfterViewInit {
+export class MLDatatableComponent<T> implements OnInit, OnChanges, AfterViewInit {
 
   @Input() setting: MLDatatableSetting;
   @Input() dataUrl: string;
@@ -23,6 +23,7 @@ export class MlDatatableComponent<T> implements OnInit, OnChanges, AfterViewInit
 
   dataObject: any;
   displayedColumns = [];
+  filterDisplayedColumns = [];
   selection: SelectionModel<T>;
 
   selectedRowIndex = -1;
@@ -50,12 +51,13 @@ export class MlDatatableComponent<T> implements OnInit, OnChanges, AfterViewInit
     }
 
     this.displayedColumns = this.datatableService.createDefaultDisplayedColumns(this.setting);
+    this.filterDisplayedColumns = this.datatableService.createDefaultFilterDisplayedColumns(this.setting);
 
     this.dataObject = new MatTableDataSource<T>(this.dataSource);
 
-    if (this.setting.selectMode !== MLSelectMode.NONE) {
+    if (this.setting.selectMode !== MLDatatableSelectMode.NONE) {
       this.selection = new SelectionModel<T>(
-        (this.setting.selectMode === MLSelectMode.MULTI), []);
+        (this.setting.selectMode === MLDatatableSelectMode.MULTI), []);
     }
   }
 
@@ -81,7 +83,7 @@ export class MlDatatableComponent<T> implements OnInit, OnChanges, AfterViewInit
   }
 
   isMultipleSelect(): boolean {
-    return this.setting.selectMode === MLSelectMode.MULTI;
+    return this.setting.selectMode === MLDatatableSelectMode.MULTI;
   }
 
   openSingleViewDialog(row: T): void {
